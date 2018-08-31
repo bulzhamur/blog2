@@ -15,3 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth']], function(){
+   route::get('/','DashboardController@dashboard')->name('admin.index');
+   route::resource('/category', 'CategoryController', ['as'=>'admin']);
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
